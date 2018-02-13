@@ -1,13 +1,15 @@
-# RoboticArm
+# Robotic Arm
 # introduction 
-this project aims to make a robotic arm that can be dirictly controled by a user.
-in this project relication of the human arm movment to mke it more natural to control.
+this project aims to make a robotic arm that can be directly controlled by a user.
+in this project, we aim to replicate the movement of the human arm, to make the control of it  feels natural.
 # parts 
 4*servos 
-1*metalic claw
+1*metallic claw
 some 3d printed parts
-i2c controled servo driver ic
+i2c controlled servo driver ic
 push buttons 
 2*joystick 
-rasspberry pi 
+raspberry pi 
 pcb's
+
+
