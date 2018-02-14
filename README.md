@@ -12,7 +12,7 @@ In this project, we aim to replicate the movement of the human arm, to make the 
 ## Parts 
 - 4*servos 
 - 1*metallic claw
-- some 3d printed parts
+- some 3D printed parts
 - i2c controlled servo driver ic
 - push buttons 
 - 2*joystick 
