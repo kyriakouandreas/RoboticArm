@@ -4,7 +4,7 @@
 This project aims to make a robotic arm that can be directly controlled by a user.
 In this project, we aim to replicate the movement of the human arm, to make the control of it feel natural.
 
-## Contriputors 
+## Contributors 
 - Sharraf Eltelbani
 - Daniel Alvarez Geronimo
 - Andreas Kyrikaou
@@ -14,8 +14,7 @@ In this project, we aim to replicate the movement of the human arm, to make the 
 - 1*metallic claw
 - some 3D printed parts
 - i2c controlled servo driver ic
-- push buttons 
-- 2*joystick 
+- push buttons  
 - raspberry pi 
 - pcb's
 
