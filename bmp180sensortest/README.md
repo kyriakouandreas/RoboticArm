@@ -24,23 +24,14 @@ Software
 
 To clone the git repository:
 
-    git clone https://github.com/DevGero/Qt-RPI_ServoThread.git    
+    git clone https://github.com/DevGero/Qt_bmp180_I2C.git  
 
 To build:
 
-    cd Qt-RPI_ServoThread/ServoCode
+    cd Qt_bmp180_I2C
     qmake
     make
 
-To run it needs to be as root user to be able to access the PWM.
+To run
 
-    sudo ./Servo_Butons_Threads
-
-Possible trouble
-----------------
-
-If it screen an error of not been able to access the interface resources type:
-
-    sudo cp /home/pi/.Xauthority /root
-
-and try again.
+    ./bmp180_testProgram
