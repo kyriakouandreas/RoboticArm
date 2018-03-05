@@ -7,3 +7,7 @@ At the end of the process in here we will have the final code and Software instr
 work.
 The hardware instructions will be in other README file on the master branch.
 
+5/5/2018:
+The present program incorporate the reading and display of the readings of the sensors. Also, the controll os the motors using the servo slave i2c and the use of two buttons to control any of the motors select it by the user.
+
+
