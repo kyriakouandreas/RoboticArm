@@ -25,6 +25,7 @@
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -45,18 +46,26 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *lbl_motoSA;
     QDial *dial_MotorSA;
+    QLabel *label_3;
+    QSpinBox *sBox_addrSA;
     QRadioButton *rBtn_MtrSA;
     QVBoxLayout *verticalLayout_2;
     QLabel *lbl_motorSB;
     QDial *dial_MotorSB;
+    QLabel *label_4;
+    QSpinBox *sBox_addrSB;
     QRadioButton *rBtn_MtrSB;
     QVBoxLayout *verticalLayout_3;
     QLabel *lbl_motorElbow;
     QDial *dial_MotorElbow;
+    QLabel *label_5;
+    QSpinBox *sBox_addrE;
     QRadioButton *rBtn_MtrElbow;
     QVBoxLayout *verticalLayout_4;
     QLabel *lbl_motorClamp;
     QDial *dial_MotorClamp;
+    QLabel *label_6;
+    QSpinBox *sBox_addrC;
     QRadioButton *rBtn_MtrClaw;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_2;
@@ -88,7 +97,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(580, 506);
+        MainWindow->resize(637, 569);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_10 = new QVBoxLayout(centralWidget);
@@ -124,6 +133,18 @@ public:
 
         verticalLayout->addWidget(dial_MotorSA);
 
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        verticalLayout->addWidget(label_3);
+
+        sBox_addrSA = new QSpinBox(groupBox);
+        sBox_addrSA->setObjectName(QStringLiteral("sBox_addrSA"));
+        sBox_addrSA->setMaximum(11);
+        sBox_addrSA->setValue(9);
+
+        verticalLayout->addWidget(sBox_addrSA);
+
         rBtn_MtrSA = new QRadioButton(groupBox);
         rBtn_MtrSA->setObjectName(QStringLiteral("rBtn_MtrSA"));
 
@@ -148,6 +169,18 @@ public:
         dial_MotorSB->setInvertedControls(false);
 
         verticalLayout_2->addWidget(dial_MotorSB);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        verticalLayout_2->addWidget(label_4);
+
+        sBox_addrSB = new QSpinBox(groupBox);
+        sBox_addrSB->setObjectName(QStringLiteral("sBox_addrSB"));
+        sBox_addrSB->setMaximum(11);
+        sBox_addrSB->setValue(8);
+
+        verticalLayout_2->addWidget(sBox_addrSB);
 
         rBtn_MtrSB = new QRadioButton(groupBox);
         rBtn_MtrSB->setObjectName(QStringLiteral("rBtn_MtrSB"));
@@ -174,6 +207,18 @@ public:
 
         verticalLayout_3->addWidget(dial_MotorElbow);
 
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        verticalLayout_3->addWidget(label_5);
+
+        sBox_addrE = new QSpinBox(groupBox);
+        sBox_addrE->setObjectName(QStringLiteral("sBox_addrE"));
+        sBox_addrE->setMaximum(11);
+        sBox_addrE->setValue(7);
+
+        verticalLayout_3->addWidget(sBox_addrE);
+
         rBtn_MtrElbow = new QRadioButton(groupBox);
         rBtn_MtrElbow->setObjectName(QStringLiteral("rBtn_MtrElbow"));
 
@@ -192,13 +237,25 @@ public:
 
         dial_MotorClamp = new QDial(groupBox);
         dial_MotorClamp->setObjectName(QStringLiteral("dial_MotorClamp"));
-        dial_MotorClamp->setMaximum(30);
+        dial_MotorClamp->setMaximum(35);
         dial_MotorClamp->setValue(15);
         dial_MotorClamp->setSliderPosition(15);
         dial_MotorClamp->setInvertedAppearance(false);
         dial_MotorClamp->setInvertedControls(false);
 
         verticalLayout_4->addWidget(dial_MotorClamp);
+
+        label_6 = new QLabel(groupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        verticalLayout_4->addWidget(label_6);
+
+        sBox_addrC = new QSpinBox(groupBox);
+        sBox_addrC->setObjectName(QStringLiteral("sBox_addrC"));
+        sBox_addrC->setMaximum(11);
+        sBox_addrC->setValue(6);
+
+        verticalLayout_4->addWidget(sBox_addrC);
 
         rBtn_MtrClaw = new QRadioButton(groupBox);
         rBtn_MtrClaw->setObjectName(QStringLiteral("rBtn_MtrClaw"));
@@ -341,7 +398,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 580, 26));
+        menuBar->setGeometry(QRect(0, 0, 637, 26));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -360,12 +417,16 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "Arm Controls", Q_NULLPTR));
         lbl_motoSA->setText(QApplication::translate("MainWindow", "Shoulder A: ", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Address:", Q_NULLPTR));
         rBtn_MtrSA->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
         lbl_motorSB->setText(QApplication::translate("MainWindow", "Shoulder B:", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "Address:", Q_NULLPTR));
         rBtn_MtrSB->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
         lbl_motorElbow->setText(QApplication::translate("MainWindow", "Elbow:", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "Address:", Q_NULLPTR));
         rBtn_MtrElbow->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
         lbl_motorClamp->setText(QApplication::translate("MainWindow", "Clamp:", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "Address:", Q_NULLPTR));
         rBtn_MtrClaw->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "Fast", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "Slow", Q_NULLPTR));

@@ -28,11 +28,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     bmp180.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    servoslavei2c.cpp \
+    sensorthread.cpp \
+    buttonsthread.cpp
 
 HEADERS  += mainwindow.h \
     bmp180.h \
-    qcustomplot.h
+    qcustomplot.h \
+    servoslavei2c.h \
+    sensorthread.h \
+    buttonsthread.h
 
 FORMS    += mainwindow.ui
 

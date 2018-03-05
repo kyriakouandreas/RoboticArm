@@ -13,7 +13,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
-#include "bmp180.h"
+#include "servoslavei2c.h"
+#include "sensorthread.h"
+#include "buttonsthread.h"
 #include <wiringPi.h>
 
 namespace Ui {
@@ -46,9 +48,31 @@ private slots:
 
     void on_vSdr_speed_valueChanged(int value);
 
+    void on_valuesread(float,int);
+
+    void on_keyrelease();
+
+    void on_updatepos(int);
+
+    void on_rBtn_MtrSA_clicked();
+
+    void on_rBtn_MtrSB_clicked();
+
+    void on_rBtn_MtrElbow_clicked();
+
+    void on_rBtn_MtrClaw_clicked();
+
+    void on_rBtn_MtrNone_clicked();
+
+    void on_vSdr_speed_sliderMoved(int position);
+
 private:
     Ui::MainWindow *ui;
     QTime time;
+    ServoController *servoi2c;
+    SensorThread *sensorThread;
+    ButtonsThread *btnThread;
+    QMutex main_mutex;
 };
 
 #endif // MAINWINDOW_H
