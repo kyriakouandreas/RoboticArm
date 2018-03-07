@@ -44,9 +44,7 @@ private slots:
 
     void on_dial_MotorSB_valueChanged(int value);
 
-    void on_dial_MotorSA_valueChanged(int value);
-
-    void on_vSdr_speed_valueChanged(int value);
+    void on_dial_MotorSA_valueChanged(int value);    
 
     void on_valuesread(float,int);
 

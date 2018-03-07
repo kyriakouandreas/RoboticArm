@@ -21,6 +21,7 @@ void ButtonsThread::run(){
         if(digitalRead(BUTTON_LEFT)){
                 digitalWrite(LED, 1);
                 delay(m_speed);
+                //sleep(m_speed);
 
                 if (MotorPos < servoi2c->getAngleLimit(address)){
                     MotorPos++;
@@ -28,10 +29,13 @@ void ButtonsThread::run(){
                 this->mutex.lock();
                 servoi2c->motorPos(address, MotorPos);
                 this->mutex.unlock();
+
+                emit updatePos(MotorPos);
         }
         if(digitalRead(BUTTON_RIGHT)){
                 digitalWrite(LED, 1);
                 delay(m_speed);
+                //sleep(m_speed);
 
                 if (MotorPos > servoi2c->getLowAngleLimit(address)){
                     MotorPos--;
@@ -39,9 +43,11 @@ void ButtonsThread::run(){
                 this->mutex.lock();
                 servoi2c->motorPos(address, MotorPos);
                 this->mutex.unlock();
+
+                emit updatePos(MotorPos);
         }
         digitalWrite(LED, 0);
-        emit updatePos(MotorPos);
+        //emit updatePos(MotorPos);
     }//and while
 emit keyrelease();
 }

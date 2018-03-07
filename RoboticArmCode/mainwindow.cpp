@@ -63,35 +63,38 @@ void MainWindow::on_pBtn_setinitPos_clicked()
 
 void MainWindow::on_dial_MotorClamp_valueChanged(int value)
 {
+    if(ui->sBox_addrC->isEnabled()){
     main_mutex.lock();
     servoi2c->motorPos(ui->sBox_addrC->value(),value);
     main_mutex.unlock();
+    }
 }
 
 void MainWindow::on_dial_MotorElbow_valueChanged(int value)
 {
+    if(ui->sBox_addrE->isEnabled()){
     main_mutex.lock();
     servoi2c->motorPos(ui->sBox_addrE->value(),value);
     main_mutex.unlock();
+    }
 }
 
 void MainWindow::on_dial_MotorSB_valueChanged(int value)
 {
+    if(ui->sBox_addrSB->isEnabled()){
     main_mutex.lock();
     servoi2c->motorPos(ui->sBox_addrSB->value(),value);
     main_mutex.unlock();
+    }
 }
 
 void MainWindow::on_dial_MotorSA_valueChanged(int value)
 {
+    if(ui->sBox_addrSA->isEnabled()){
     main_mutex.lock();
     servoi2c->motorPos(ui->sBox_addrSA->value(),value);
     main_mutex.unlock();
-}
-
-void MainWindow::on_vSdr_speed_valueChanged(int value)
-{
-
+    }
 }
 
 void MainWindow::on_keyrelease(){
