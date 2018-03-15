@@ -6,6 +6,8 @@ In this project, we aim to replicate the movement of the human arm, to make the 
 
 [ see our wiki! ](https://github.com/kyriakouandreas/RoboticArm/wiki)
 
+[ watch a video of the finished project](https://youtu.be/8hPd8vS8S5o)
+
 ## Contributors 
 - Sharraf Eltelbani
 - Daniel Alvarez Geronimo
