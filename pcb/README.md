@@ -6,7 +6,10 @@ it was made using proteus software, and all files needed to manufacture it are h
  ![](https://i.imgur.com/hNfoX64.png)
 ## parts and components 
 J1: is the servo controler ic. 
+
 J2: is the connection to the RPi.
+
 temp: is the connection to the .
+
 R4, R5: 250 ohms.
 
