@@ -16,12 +16,12 @@ In this project, we aim to replicate the movement of the human arm, to make the 
 - Andreas Kyrikaou
 
 ## Parts 
-- 4*servos 
-- 1*metallic claw
-- some 3D printed parts
-- i2c controlled servo driver ic
+- 4*servos the model             (LewanSoul LD-3015MG)
+- 1*metallic claw                (MagiDeal Aluminium Mechanical Robotic Arm Clamp Claw Mount)
+- some 3D printed parts          (look in the mech des folder to see them)
+- i2c controlled servo driver ic (from [hobby electronics](http://www.hobbytronics.co.uk/servo-controller-12ch-ht))
 - push buttons  
-- raspberry pi 
-- pcb's
+- raspberry pi 3
+- pcb's                          (look at the pcb folder for more detail)
 
 
