@@ -18,6 +18,37 @@
 #include "buttonsthread.h"
 #include <wiringPi.h>
 
+//For the Reset actions
+#define RESET_BUTTON 5
+//Emergency LED
+#define LED_RED 2
+
+
+//INITIAL POSITION
+#define CLAMP_POS 90
+#define ELBOW_POS 90
+#define SHOULDER_B_POS 90
+#define SHOULDER_A_POS 90
+
+//Array Position
+#define CLAMP 0
+#define ELBOW 1
+#define SHOULDER_B 2
+#define SHOULDER_A 3
+
+//CLAMP limits
+#define CLAMP_LOW_LIMIT 65
+#define CLAMP_HIGH_LIMIT 125
+
+//Amount until alram state
+#define ALARM_TEMP_COUNT 5
+
+//Global Functions
+void resetPositionISR(void);
+
+static int g_initPos[4];
+static int g_motorAddr[4];
+
 namespace Ui {
 class MainWindow;
 }
@@ -64,6 +95,14 @@ private slots:
 
     void on_vSdr_speed_sliderMoved(int position);
 
+    void on_sBox_addrSA_valueChanged(int arg1);
+
+    void on_sBox_addrSB_valueChanged(int arg1);
+
+    void on_sBox_addrE_valueChanged(int arg1);
+
+    void on_sBox_addrC_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QTime time;
@@ -71,6 +110,11 @@ private:
     SensorThread *sensorThread;
     ButtonsThread *btnThread;
     QMutex main_mutex;
+    int initPos[4];
+    int high_state; //To avoid the glitches that makes false reset
+
+    void resetActions();
+    void setDials(bool);
 };
 
 #endif // MAINWINDOW_H

@@ -237,9 +237,10 @@ public:
 
         dial_MotorClamp = new QDial(groupBox);
         dial_MotorClamp->setObjectName(QStringLiteral("dial_MotorClamp"));
-        dial_MotorClamp->setMaximum(35);
-        dial_MotorClamp->setValue(15);
-        dial_MotorClamp->setSliderPosition(15);
+        dial_MotorClamp->setMinimum(65);
+        dial_MotorClamp->setMaximum(125);
+        dial_MotorClamp->setValue(90);
+        dial_MotorClamp->setSliderPosition(90);
         dial_MotorClamp->setInvertedAppearance(false);
         dial_MotorClamp->setInvertedControls(false);
 
@@ -365,7 +366,7 @@ public:
         dsBox_tempLimit = new QDoubleSpinBox(groupBox_2);
         dsBox_tempLimit->setObjectName(QStringLiteral("dsBox_tempLimit"));
         dsBox_tempLimit->setSingleStep(0.1);
-        dsBox_tempLimit->setValue(50);
+        dsBox_tempLimit->setValue(25);
 
         verticalLayout_7->addWidget(dsBox_tempLimit);
 

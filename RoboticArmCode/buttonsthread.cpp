@@ -11,7 +11,7 @@ ButtonsThread::ButtonsThread(int p, int adr, ServoController* si2c):QThread(){
 
     wiringPiSetup();
 
-    pinMode(LED, OUTPUT);
+    pinMode(LED, OUTPUT);    
     pinMode(BUTTON_LEFT, INPUT);
     pinMode(BUTTON_RIGHT, INPUT);
 }

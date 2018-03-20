@@ -6,13 +6,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //Temp counter init
+    high_state = 0;
 
     //Servos Init
     servoi2c = new ServoController(SERCONT_ADDRESS, MODE_EXTND);
     servoi2c->addMotor(ui->sBox_addrSA->value(), 90, 0, 180);
     servoi2c->addMotor(ui->sBox_addrSB->value(), 90, 0, 180);
     servoi2c->addMotor(ui->sBox_addrE->value(),90, 0, 180);
-    servoi2c->addMotor(ui->sBox_addrC->value(),0,0,35);//OPEN,BETWEEN 0 and 35 degrees
+    servoi2c->addMotor(ui->sBox_addrC->value(),90,CLAMP_LOW_LIMIT,CLAMP_HIGH_LIMIT);
 
     //Sensor thread Init
     sensorThread = new SensorThread();
@@ -34,7 +36,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->temp_graph->xAxis->setLabel("time(sec)");
     ui->temp_graph->yAxis->setLabel("T(C)");
 
+    //Initial Position Config (if possible let posibility from file)
+    initPos[CLAMP] = CLAMP_POS;
+    initPos[ELBOW] = ELBOW_POS;
+    initPos[SHOULDER_A] = SHOULDER_A_POS;
+    initPos[SHOULDER_B] = SHOULDER_B_POS;
 
+    g_initPos[CLAMP] = CLAMP_POS;
+    g_initPos[ELBOW] = ELBOW_POS;
+    g_initPos[SHOULDER_A] = SHOULDER_A_POS;
+    g_initPos[SHOULDER_B] = SHOULDER_B_POS;
+
+    g_motorAddr[CLAMP] = ui->sBox_addrC->value();
+    g_motorAddr[ELBOW] = ui->sBox_addrE->value();
+    g_motorAddr[SHOULDER_A] = ui->sBox_addrSA->value();
+    g_motorAddr[SHOULDER_B] = ui->sBox_addrSB->value();
+
+    //Gpio inits
+    if (wiringPiSetup() == -1){
+           QMessageBox::information(this,"Error conf gpio","The gpio could not be configured");
+           QApplication::quit();
+    }
+    pinMode(LED_RED, OUTPUT);
+    digitalWrite(LED_RED, 0);
+
+    wiringPiISR(RESET_BUTTON, INT_EDGE_RISING, &resetPositionISR);
 }
 
 MainWindow::~MainWindow()
@@ -49,6 +75,8 @@ void MainWindow::on_pBtn_reset_clicked()
 {
     //Reset Actions
     time = QTime::currentTime();
+    resetActions();
+    setDials(false);
 }
 
 void MainWindow::on_pBtn_close_clicked()
@@ -122,26 +150,26 @@ void MainWindow::on_valuesread(float _t, int _p){
 
     //Temperature Control
     if(_t > ui->dsBox_tempLimit->value()){
-        ui->temp_graph->graph(0)->setPen(QPen(Qt::red)); // line color blue for first graph
-        ui->temp_graph->graph(0)->setBrush(QBrush(QColor(255, 0, 0, 20)));
-        //resetPositionISR();
-       /* ui->dial_motorA->setValue(RESET_POS);
-        ui->dial_motorA->setEnabled(FALSE);
-        //Asking is Thread active to ended too
-        if(ui->cBox_motorA->isChecked()){
-            btnThread->setBtnFlag(FALSE);
+        high_state++;
+        if(high_state == ALARM_TEMP_COUNT){
+            ui->temp_graph->graph(0)->setPen(QPen(Qt::red)); // line color blue for first graph
+            ui->temp_graph->graph(0)->setBrush(QBrush(QColor(255, 0, 0, 20)));
+            //resetPositionISR();
+            resetActions();
+            setDials(false);
+            digitalWrite(LED_RED, 1);
         }
-        ui->cBox_motorA->setChecked(FALSE);
-        ui->cBox_motorA->setEnabled(FALSE);*/
     }
     else{
-      /*  if(!ui->dial_motorA->isEnabled()){
-            ui->dial_motorA->setEnabled(TRUE);
-            ui->cBox_motorA->setEnabled(TRUE);
-            ui->temp_graph->graph(0)->setPen(QPen(Qt::blue)); // line color blue for first graph
-            ui->temp_graph->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20)));
+        ui->temp_graph->graph(0)->setPen(QPen(Qt::blue)); // line color blue for first graph
+        ui->temp_graph->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20)));
 
-        }*/
+        high_state = 0; //reset real alarm counting
+
+        if(!(ui->dial_MotorSA->isEnabled() && ui->dial_MotorSB->isEnabled())){
+            setDials(true);
+            digitalWrite(LED_RED, 0);
+        }
     }
 
     ui->temp_graph->graph(0)->addData(key, _t);
@@ -238,4 +266,57 @@ void MainWindow::on_rBtn_MtrNone_clicked()
 void MainWindow::on_vSdr_speed_sliderMoved(int position)
 {
     btnThread->setmspeed(position);
+}
+
+void MainWindow::resetActions(){
+
+    ui->dial_MotorClamp->setValue(initPos[CLAMP]);
+    delay(5);//To not throw the sample
+    ui->dial_MotorElbow->setValue(initPos[ELBOW]);
+    ui->dial_MotorSB->setValue(initPos[SHOULDER_B]);
+    ui->dial_MotorSA->setValue(initPos[SHOULDER_A]);
+
+    //Asking is Thread active to ended too
+    if(!ui->rBtn_MtrNone->isChecked()){
+        btnThread->setBtnFlag(false);
+        ui->rBtn_MtrNone->setChecked(true);
+    }
+}
+
+void MainWindow::setDials(bool state){
+    ui->dial_MotorClamp->setEnabled(state);
+    ui->dial_MotorElbow->setEnabled(state);
+    ui->dial_MotorSB->setEnabled(state);
+    ui->dial_MotorSA->setEnabled(state);
+}
+
+void resetPositionISR(){
+    ServoController resetServo(SERCONT_ADDRESS,MODE_EXTND);
+    resetServo.addMotor(g_motorAddr[CLAMP], g_initPos[CLAMP], CLAMP_LOW_LIMIT, CLAMP_HIGH_LIMIT);
+    resetServo.addMotor(g_motorAddr[ELBOW], g_initPos[ELBOW], 0, 180);
+    resetServo.addMotor(g_motorAddr[SHOULDER_B], g_initPos[SHOULDER_B], 0, 180);
+    resetServo.addMotor(g_motorAddr[SHOULDER_B], g_initPos[SHOULDER_A], 0, 180);
+
+
+    //QApplication::quit();
+}
+
+void MainWindow::on_sBox_addrSA_valueChanged(int arg1)
+{
+    g_motorAddr[SHOULDER_A] = arg1;
+}
+
+void MainWindow::on_sBox_addrSB_valueChanged(int arg1)
+{
+    g_motorAddr[SHOULDER_B] = arg1;
+}
+
+void MainWindow::on_sBox_addrE_valueChanged(int arg1)
+{
+    g_motorAddr[ELBOW] = arg1;
+}
+
+void MainWindow::on_sBox_addrC_valueChanged(int arg1)
+{
+    g_motorAddr[CLAMP] = arg1;
 }
