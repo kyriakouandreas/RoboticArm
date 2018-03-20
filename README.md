@@ -3,6 +3,7 @@
 ## Introduction 
 This project aims to provide a practical tool semiautomated to work in control environments as labs where the contamination of the human hand, for example, is not allowed in certain samples. The movement is control by a user through an interface and physical buttons as well. 
 The semiautomated is related to the constant sensing of the temperature for keeping the hand save from sudden temperatures raisings. Besides, the sensing of the pressure is for controlling the strength of the grap perform for the clamp.
+
 It can also be an intelligent crane for a Kid and a nice DIY project. Also, an example of using threads in raspberry pi using c++ and Qt
 
 [ see our wiki! ](https://github.com/kyriakouandreas/RoboticArm/wiki)
