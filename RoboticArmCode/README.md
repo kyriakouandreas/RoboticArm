@@ -17,6 +17,7 @@ It has fix some GUI updates missing. First try together with the hardware mounti
 # Making it work
 
 Hardware
+-----
 Go to Hardware instructions for instalation of this project
 
 Software
